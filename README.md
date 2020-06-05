@@ -6,7 +6,7 @@
 ## Installation
 #### CDN
 Insert the following script before the closing body tag of your index.html file and before the other scripts :
-`<script src="https://cdn.jsdelivr.net/npm/ftb-matrix@0.0.5/dist/ftb-matrix.js"></script>`
+`<script src="https://cdn.jsdelivr.net/npm/ftb-matrix@0.0.6/dist/ftb-matrix.js"></script>`
 
 #### Via package managers
 1. With `npm` :
