@@ -98,7 +98,7 @@ const inverseMat = [
 ];
 
 (async () => {
-	const simd = true;
+	const simd = false;
 	const { g, h, matFactory } = ftbMatrix({ autoFree: true, simd });
 	const Mat = await matFactory();
 
