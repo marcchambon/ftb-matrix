@@ -348,11 +348,11 @@ export default function ftbMatrix(opt = defaultOptions) {
 					$14,
 					$15,
 				]);
-			} else if (typeof $4 === 'undefine') {
+			} else if (typeof $4 === 'undefined') {
 				// case of dimension 2 matrix, only 4 values
 				this.dimension = 2;
 				Object.assign(slotToTypedArrayMap[this.slot], [$0, $1, 0, 0, $2, $3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-			} else if (typeof $9 === 'undefine') {
+			} else if (typeof $9 === 'undefined') {
 				// case of dimension 3 matrix, only 9 values
 				this.dimension = 3;
 				Object.assign(slotToTypedArrayMap[this.slot], [$0, $1, $2, 0, $3, $4, $5, 0, $6, $7, $8, 0, 0, 0, 0, 0]);
@@ -382,8 +382,7 @@ export default function ftbMatrix(opt = defaultOptions) {
 		};
 
 		Mat.prototype.equals = function(mat) {
-			if (exports.equals(this, mat)) return true;
-			return false;
+			return !!exports.equals(this.slot, mat.slot);
 		};
 
 		Mat.prototype.decompose = function(
@@ -491,10 +490,6 @@ export default function ftbMatrix(opt = defaultOptions) {
 		Mat.prototype.getInverse = function(mat) {
 			exports.getInverse(this.slot, mat.slot);
 			return this;
-		};
-
-		Mat.prototype.equals = function(mat) {
-			return exports.equals(this.slot, mat.slot) ? true : false;
 		};
 
 		Object.defineProperty(Mat.prototype, 'elements', {
