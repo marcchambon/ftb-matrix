@@ -178,7 +178,7 @@ export default function ftbMatrix(opt = defaultOptions) {
 				identity_d(currentMemorySlot);
 			}
 
-			this[Symbol.toPrimitive] = function(hint) {
+			this[Symbol.toPrimitive] = hint => {
 				if (hint === 'string') {
 					return slotToTypedArrayMap[this.slot].toString();
 				} else if (hint === 'number') {
