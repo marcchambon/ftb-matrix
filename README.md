@@ -43,5 +43,28 @@ const arr = mat.elements;
 // freeing the memory allocated in the WebAssembly memory object.
 mat.free();
 ```
+2. Enabling garbage collection awareness
+```js
+const { Mat, g } = await ftbMatrix({ autoFree });
+const mat = new Mat();g(_=>mat);
+// no need to do: mat.free();
+```
+Note: tedious but could be automated with framework like Svelte
+(inserting g(_=>varialbe) at compile time?).
 
-2. [More functions - see the ThreeJs documentation](https://threejs.org/docs/#api/en/math/Matrix4)
+3. [Enabling vector processing (SIMD) for even more speed (Chrome/Chromium only)](https://v8.dev/features/simd#enabling-experimental-simd-support-in-chrome)
+
+```js
+const { Mat } = await ftbMatrix({ simd: true });
+```
+Note: you can use { autodetect: true } instead of { simd: true },
+for automatic fallback to standard code. 
+
+4. [More functions - see the ThreeJs documentation](https://threejs.org/docs/#api/en/math/Matrix4)
+
+## Contributing
+Feedbacks are welcome (email or PM, see my Twitter acounter):
+* Improving garbage collection awareness
+(is it possible to do it automatically? not sure because of closures...), by using WeakRef
+instead of WeakMap?
+* Making SIMD code 100% operational.
