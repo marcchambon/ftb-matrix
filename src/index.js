@@ -50,7 +50,7 @@ import simdModule from '../simd.wasm';
 
 const defaultOptions = {
 	// experimental feature : garbage collection awareness (no need to call matrix.free(), but a specific call is required when creating a new matrix
-	// like this : let mat = new Mat();g(mat, _ => h(mat));
+	// like this : let mat = new Mat();g(_ => mat);
 	autoFree: false,
 	simd: false,
 	autodetect: false,
