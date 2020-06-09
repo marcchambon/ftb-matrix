@@ -1,10 +1,10 @@
 {
   "name": "ftb-matrix",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "low-footprint matrix library for modern browser, which mimics ThreeJs matrix library",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm run build && node --experimental-wasm-simd test/test.js",
+    "test": "npm run build && node --expose-gc --experimental-wasm-simd --harmony-weak-refs test/test.js",
     "build": "node --experimental-wasm-simd compileWasm.js && rollup --config"
   },
   "keywords": [

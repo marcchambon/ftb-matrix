@@ -15,29 +15,24 @@ function areMatricesEqual(mat1, mat2) {
 }
 
 function areValuesEqual(val1, val2) {
-	if (Math.abs(val1 - val2) > tolerance) return false;
-	return true;
+	return !(Math.abs(val1 - val2) > tolerance);
 }
 
 function areVectorsEqual(vec1, vec2) {
-	if (
+	return (
 		Math.abs(vec1.x - vec2.x) <= tolerance &&
 		Math.abs(vec1.y - vec2.y) <= tolerance &&
 		Math.abs(vec1.z - vec2.z) <= tolerance
 	)
-		return true;
-	return false;
 }
 
 function areQuaternionEqual(vec1, vec2) {
-	if (
+	return (
 		Math.abs(vec1._x - vec2._x) <= tolerance &&
 		Math.abs(vec1._y - vec2._y) <= tolerance &&
 		Math.abs(vec1._z - vec2._z) <= tolerance &&
 		Math.abs(vec1._w - vec2._w) <= tolerance
 	)
-		return true;
-	return false;
 }
 
 const axisRotMat = [
@@ -99,8 +94,7 @@ const inverseMat = [
 
 (async () => {
 	const simd = false;
-	const { g, h, matFactory } = ftbMatrix({ autoFree: true, simd });
-	const Mat = await matFactory();
+	const { Mat, g }  = await ftbMatrix({ autoFree: true, simd });
 
 	if (!simd) {
 		test('Utility - cosine', async function(t) {
@@ -196,13 +190,12 @@ const inverseMat = [
 
 	test('Matrices are aware of the garbage collection', async function(t) {
 		t.plan(3);
-		let mat = new Mat();
-		g(mat, _ => h(mat));
+		let mat = new Mat();g(_ => mat);
 		t.equal(mat.slot, 42, 'first matrix uses slot 42.');
-		let mat2 = new Mat();
-		g(mat2, _ => h(mat2));
+		let mat2 = new Mat();g(_ => mat2);
 		t.equal(mat2.slot, 43, 'Second matrix uses slot 43.');
 		mat = null;
+		global.gc();
 		let mat3 = new Mat();
 		t.equal(mat3.slot, 42, 'Third matrix re-uses slot 42.');
 		// cleanup
@@ -545,7 +538,7 @@ const inverseMat = [
 		const mat = new Mat(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 		const arr = [0];
 		const resultArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-		t.equal(JSON.stringify(mat.toArray(arr, 1)) == JSON.stringify(resultArr), true);
+		t.equal(JSON.stringify(mat.toArray(arr, 1)) === JSON.stringify(resultArr), true);
 		mat.free();
 	});
 

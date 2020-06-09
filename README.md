@@ -6,7 +6,7 @@
 ## Installation
 #### CDN
 Insert the following script before the closing body tag of your index.html file and before the other scripts :
-`<script src="https://cdn.jsdelivr.net/npm/ftb-matrix@0.0.6/dist/ftb-matrix.js"></script>`
+`<script src="https://cdn.jsdelivr.net/npm/ftb-matrix@0.0.7/dist/ftb-matrix.js"></script>`
 
 #### Via package managers
 1. With `npm` :
@@ -30,8 +30,7 @@ Insert the following script before the closing body tag of your index.html file 
 1. Getting the matrix constructor :
 
     ```js
-    const { matFactory } = ftbMatrix();
-    const Mat = await matFactory();
+    const { Mat } = await ftbMatrix();
     ```
 
 ## Examples
