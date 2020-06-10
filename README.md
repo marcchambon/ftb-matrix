@@ -63,7 +63,7 @@ for automatic fallback to standard code.
 4. [More functions - see the ThreeJs documentation](https://threejs.org/docs/#api/en/math/Matrix4)
 
 ## Contributing
-Feedbacks are welcome (email or PM, see my Twitter acounter):
+Feedbacks are welcome (email or PM, see my Twitter account):
 * Improving garbage collection awareness
 (is it possible to do it automatically? not sure because of closures...), by using WeakRef
 instead of WeakMap?
