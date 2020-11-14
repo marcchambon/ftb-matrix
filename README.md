@@ -67,4 +67,3 @@ Feedbacks are welcome (email or PM, see my Twitter account):
 * Improving garbage collection awareness
 (is it possible to do it automatically? not sure because of closures...), by using WeakRef
 instead of WeakMap?
-* Making SIMD code 100% operational.
