@@ -6,7 +6,7 @@
 ## Installation
 #### CDN
 Insert the following script before the closing body tag of your index.html file and before the other scripts :
-`<script src="https://cdn.jsdelivr.net/npm/ftb-matrix@0.0.8/dist/ftb-matrix.js"></script>`
+`<script src="https://cdn.jsdelivr.net/npm/ftb-matrix@0.0.9/dist/ftb-matrix.js"></script>`
 
 #### Via package managers
 1. With `npm` :
@@ -31,7 +31,7 @@ Insert the following script before the closing body tag of your index.html file 
 
     ```js
     const { Mat } = await ftbMatrix();
-    ```
+    ```0.
 
 ## Examples
 __IMPORTANT__: these matrices use the column-major convention.
