@@ -73,9 +73,7 @@
 ;; @returns {v128} - Both cosine and sine values (v128 f64x2).
 (func $halfPeriodCossin (type $1f64resultv128) (local v128 v128)
     (f64x2.add
-        (tee_local 1
-            (f64x2.splat (f64.const 1.0))
-        )
+        (tee_local 1 (v128.const f64x2 1 1))
         (f64x2.mul
             (tee_local 2
                 (f64x2.replace_lane 1
@@ -91,51 +89,51 @@
                 )
             )
             (f64x2.add
-                (f64x2.splat (f64.const -0.5))
+                (v128.const f64x2 -0.5 -0.5)
                 (f64x2.mul
                     (f64x2.mul
-                        (f64x2.splat (f64.const 4.1666666666666666666667E-2))   ;; 1 / (2 * 3 x 4)
+                        (v128.const f64x2 4.1666666666666666666667E-2 4.1666666666666666666667E-2)   ;; 1 / (2 * 3 x 4)
                         (get_local 2)
                     )
                     (f64x2.sub
                         (get_local 1)
                         (f64x2.mul
                             (f64x2.mul
-                                (f64x2.splat (f64.const 3.3333333333333333333333E-2))   ;; 1 / (5 x 6)
+                                (v128.const f64x2 3.3333333333333333333333E-2 3.3333333333333333333333E-2)   ;; 1 / (5 x 6)
                                 (get_local 2)
                             )
                             (f64x2.sub
                                 (get_local 1)
                                 (f64x2.mul
                                     (f64x2.mul
-                                        (f64x2.splat (f64.const 1.785714285714285714286E-2))    ;; 1 / (7 x 8)
+                                        (v128.const f64x2 1.785714285714285714286E-2 1.785714285714285714286E-2)    ;; 1 / (7 x 8)
                                         (get_local 2)
                                     )
                                     (f64x2.sub
                                         (get_local 1)
                                         (f64x2.mul
                                             (f64x2.mul
-                                                (f64x2.splat (f64.const 1.111111111111111111111E-2))    ;;  1 / (9 x 10)
+                                                (v128.const f64x2 1.111111111111111111111E-2 1.111111111111111111111E-2)    ;;  1 / (9 x 10)
                                                 (get_local 2)
                                             )
                                             (f64x2.sub
                                                 (get_local 1)
                                                 (f64x2.mul
                                                     (f64x2.mul
-                                                        (f64x2.splat (f64.const 7.575757575757575757576E-3))    ;;  1 / (11 x 12)
+                                                        (v128.const f64x2 7.575757575757575757576E-3 7.575757575757575757576E-3)    ;;  1 / (11 x 12)
                                                         (get_local 2)
                                                     )
                                                     (f64x2.sub
                                                         (get_local 1)
                                                         (f64x2.mul
                                                             (f64x2.mul
-                                                                (f64x2.splat (f64.const 5.494505494505494505495E-3))    ;;  1 / (13 x 14)
+                                                                (v128.const f64x2 5.494505494505494505495E-3 5.494505494505494505495E-3)    ;;  1 / (13 x 14)
                                                                 (get_local 2)
                                                             )
                                                             (f64x2.sub
                                                                 (get_local 1)
                                                                 (f64x2.mul
-                                                                    (f64x2.splat (f64.const 4.1666666666666666666667E-3))   ;;  1 / (15 x 16)
+                                                                    (v128.const f64x2 4.1666666666666666666667E-3 4.1666666666666666666667E-3)   ;;  1 / (15 x 16)
                                                                     (get_local 2)
                                                                 )
                                                             )
@@ -217,14 +215,11 @@
 ;; @param {v128} local 1 - temporary variable.
 ;; @returns {i32} - Matrix starting memory address in byte offset.
 (func $clear (export "clear") (type $1i32resulti32) (local v128)
-    ;; v128.const not available on all platforms yet (ex: ARM)
     (v128.store offset=0 align=4
         (tee_local 0
             (call $mapMatrixSlotToMemoryOffset (get_local 0))
         )
-        (tee_local 1
-            (f32x4.splat (f32.const 0.0))
-        )
+        (tee_local 1 (v128.const f32x4 0 0 0 0))
     )
     (v128.store offset=16 align=4 (get_local 0) (get_local 1))
     (v128.store offset=32 align=4 (get_local 0) (get_local 1))
@@ -384,7 +379,6 @@
 ;; @param {i32} local 0 (signature) - Source matrix slot.
 ;; @param {i32} local 1 (signature) - Destination matrix slot.
 (func (export "copy") (type $2i32resultNone)
-    ;; v128.const not available on all platforms yet (ex: ARM)
     (v128.store offset=0 align=4
         (tee_local 1
             (call $mapMatrixSlotToMemoryOffset (get_local 1))
@@ -488,17 +482,12 @@
 ;; @param {i32} local 0 (signature) - Matrix slot.
 ;; @param {v128} local 1 (extra local) - temporary variable.
 ;; @returns {i32} - Matrix starting memory address.
-;; TODO: Solving issue with (v128.const f32x4 1.0 0.0 0.0 0.0)
 (func $identity (export "identity_d") (type $1i32resulti32) (local v128)
-    ;; v128.const not available on all platforms yet (ex: ARM)
     (v128.store offset=0 align=4
         (tee_local 0
             (call $mapMatrixSlotToMemoryOffset (get_local 0))
         )
-        (f32x4.replace_lane 0
-            (f32x4.splat (f32.const 0.0))
-            (f32.const 1.0)
-        )
+        (v128.const f32x4 1 0 0 0)
     )
     (v128.store offset=16 align=4
         (get_local 0)
