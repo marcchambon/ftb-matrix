@@ -31,7 +31,7 @@ Insert the following script before the closing body tag of your index.html file 
 
     ```js
     const { Mat } = await ftbMatrix();
-    ```0.
+    ```
 
 ## Examples
 __IMPORTANT__: these matrices use the column-major convention.
