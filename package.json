@@ -1,6 +1,6 @@
 {
   "name": "ftb-matrix",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "low-footprint matrix library for modern browser, which mimics ThreeJs matrix library",
   "main": "src/index.js",
   "scripts": {
